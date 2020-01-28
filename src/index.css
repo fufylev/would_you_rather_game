@@ -16,6 +16,9 @@ code {
 
 
 .auth-form {
-    width: 400px;
+    width: 350px;
     margin: 0 auto;
+}
+.select-user {
+    width: 100%;
 }

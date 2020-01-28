@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 import { userIsLoggedIn } from "../actions/auth";
+import { currentPageHandler } from "../actions/currentPage";
 
 class Auth extends Component {
     state = {
-        value: 'choice',
+        value: 'select',
     };
 
     handleChange = (event) => {
@@ -17,7 +19,10 @@ class Auth extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const {value} = this.state;
-        this.props.dispatch(userIsLoggedIn(value))
+        this.props.dispatch(userIsLoggedIn(value));
+        // redirect to Home Page
+        this.props.history.push(`/`);
+        this.props.dispatch(currentPageHandler('/'));
     };
 
     render() {
@@ -35,10 +40,10 @@ class Auth extends Component {
                         <select
                             value={this.state.value}
                             onChange={this.handleChange}
-                        >
-                            <option value='choice' disabled>Choose User</option>
+                            className='select-user'>
+                            <option value='select' disabled>Select User</option>
                             {usersArray && usersArray.map(name => (
-                                <option key={name} value={name}>{name}</option>
+                                <option key={name} value={name}> {name} </option>
                             ))}
                         </select>
                     </div>
@@ -57,4 +62,4 @@ function mapStateToProps({users}) {
     };
 }
 
-export default connect(mapStateToProps)(Auth);
+export default withRouter(connect(mapStateToProps)(Auth));
