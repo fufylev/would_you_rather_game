@@ -9,6 +9,10 @@
 ```
 cd would_you_rather_game
 npm install
-npm start
+yarn start
 ```
 
+* To create a production build, run  
+```
+yarn build
+```
