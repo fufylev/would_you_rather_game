@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const DB = 'https://would-you-rather-38744.firebaseio.com/';
 /*axios.patch(URL, {
   'firstname': this.state.account.firstname,
@@ -8,12 +6,6 @@ export const DB = 'https://would-you-rather-38744.firebaseio.com/';
     .then((response) => {
       console.log(response);
     });*/
-
-axios.get(`${DB}users.json`)
-    .then(res => console.log(res.data));
-
-axios.get(`${DB}questions.json`)
-    .then(res => console.log(res.data));
 
 let users = {
   sarahedo: {

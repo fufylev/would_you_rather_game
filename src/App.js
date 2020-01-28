@@ -7,9 +7,16 @@ import NewQuestion from './components/NewQuestion';
 import Auth from './components/Auth';
 import NavBar from "./components/NavBar";
 import LeaderBoard from "./components/LeaderBoard";
+import { getInitialData } from "./actions/shared";
 
 
 class App extends Component {
+
+    componentDidMount() {
+        // Note: response from "firebaseio.com" server is always an Object
+        this.props.dispatch(getInitialData());
+    }
+
     render() {
         return (
             <div className='container my-3'>

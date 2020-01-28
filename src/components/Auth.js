@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUsersHandler } from "../actions/users";
 
 class Auth extends Component {
     state = {
@@ -19,11 +18,6 @@ class Auth extends Component {
         console.log(this.state.value);
     };
 
-    componentDidMount() {
-        // Note: response from "firebaseio.com" server is always an Object
-        this.props.dispatch(getUsersHandler());
-    }
-
     render() {
         const {users} = this.props;
 
@@ -32,19 +26,22 @@ class Auth extends Component {
         });
 
         return (
-            <div className='auth-form'>
+            <div className='auth-form border border-default p-5 rounded'>
                 <form className='text-center' onSubmit={this.handleSubmit}>
                     <p className="h5 text-center mb-4">Sign in</p>
                     <div className="grey-text my-5">
-                        <select value={this.state.value} onChange={this.handleChange} onAbort={this.handleChange}>
+                        <select
+                            value={this.state.value}
+                            onChange={this.handleChange}
+                        >
                             <option value="choice" disabled>Choose User</option>
                             {usersArray && usersArray.map(name => (
                                 <option key={name} value={name}>{name}</option>
                             ))}
                         </select>
                     </div>
-                    <div className="text-center">
-                        <button className='btn btn-dark'>Login</button>
+                    <div className="text-center ">
+                        <button className='btn btn-dark mt-5'>Login</button>
                     </div>
                 </form>
             </div>
