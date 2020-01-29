@@ -9,6 +9,7 @@ import NavBar from './components/NavBar';
 import LeaderBoard from './components/LeaderBoard';
 import { getInitialData } from './actions/shared';
 import Header from './components/Header';
+import PollCard from "./components/PollCard";
 
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
                     <NavBar/>
                     <Route exact path='/' component={HomePage}/>
                     <Route path='/new' component={NewQuestion}/>
+                    <Route path='/poll/:id/' component={PollCard}/>
                     <Route path='/leader_board' component={LeaderBoard}/>
                     <Route path='/auth' component={Auth}/>
                 </Router>
