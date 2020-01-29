@@ -5,22 +5,24 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import NewQuestion from './components/NewQuestion';
 import Auth from './components/Auth';
-import NavBar from "./components/NavBar";
-import LeaderBoard from "./components/LeaderBoard";
-import { getInitialData } from "./actions/shared";
+import NavBar from './components/NavBar';
+import LeaderBoard from './components/LeaderBoard';
+import { getInitialData } from './actions/shared';
+import Header from './components/Header';
 
 
 class App extends Component {
 
     componentDidMount() {
-        // Note: response from "firebaseio.com" server is always an Object
+        // Note: response from 'firebaseio.com' server is always an Object
         this.props.dispatch(getInitialData());
     }
 
     render() {
         return (
-            <div className='container my-3'>
+            <div>
                 <Router>
+                    <Header />
                     <NavBar/>
                     <Route exact path='/' component={HomePage}/>
                     <Route path='/new' component={NewQuestion}/>

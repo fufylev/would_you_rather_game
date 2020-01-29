@@ -18,8 +18,10 @@ class Auth extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        const {users} = this.props;
         const {value} = this.state;
-        this.props.dispatch(userIsLoggedIn(value));
+        this.props.dispatch(userIsLoggedIn({id: value, name: users[value].name}));
+
         // redirect to Home Page
         this.props.history.push(`/`);
         this.props.dispatch(currentPageHandler('/'));
@@ -29,7 +31,7 @@ class Auth extends Component {
         const {users} = this.props;
 
         const usersArray = Object.keys(users).map(key => {
-            return users[key].name
+            return {name: users[key].name, id: key}
         });
 
         return (
@@ -42,8 +44,8 @@ class Auth extends Component {
                             onChange={this.handleChange}
                             className='select-user'>
                             <option value='select' disabled>Select User</option>
-                            {usersArray && usersArray.map(name => (
-                                <option key={name} value={name}> {name} </option>
+                            {usersArray && usersArray.map(user => (
+                                <option key={user.id} value={user.id}>{user.name}</option>
                             ))}
                         </select>
                     </div>

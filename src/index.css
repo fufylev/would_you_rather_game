@@ -22,3 +22,37 @@ code {
 .select-user {
     width: 100%;
 }
+
+.questions-container {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.tab-custom {
+    width: 50%;
+    cursor: pointer;
+}
+
+.tab-custom-content {
+    height: 100%;
+}
+
+.avatar-custom {
+    width: 80px;
+}
+
+@media screen and (max-width: 992px) {
+
+}
+@media screen and (max-width: 768px) {
+    .questions-container {
+        width: 370px;
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width: 480px) {
+
+}
+@media screen and (max-width: 320px) {
+
+}
