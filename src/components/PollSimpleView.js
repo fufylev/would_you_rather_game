@@ -22,7 +22,12 @@ class PollSimpleView extends Component {
                             </div>
                         </div>
                         <MDBLink to={`/poll/${id}`}>
-                            <button className='btn btn-default border border-success text-success'>View Poll</button>
+                            <button
+                                className='btn btn-default border border-success text-success'
+                                onClick={() => this.props.onBtnPressed()}
+                            >
+                                View Poll
+                            </button>
                         </MDBLink>
                     </div>
                 </div>

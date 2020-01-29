@@ -15,8 +15,12 @@ class PollCard extends Component {
         return (
             <div className='container text-center'>
                 {isAnswered
-                    ? <PollCardAnswered/>
-                    : <PollCardUnAnswered/>}
+                    ? <PollCardAnswered
+                        question={answeredQuestions.filter(item => item.id === id)[0]}
+                    />
+                    : <PollCardUnAnswered
+                        question={unAnsweredQuestions.filter(item => item.id === id)[0]}
+                    />}
             </div>
         );
     }

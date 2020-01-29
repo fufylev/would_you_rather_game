@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PollSimpleView from './PollSimpleView';
 import { checkIfAnswered } from '../utils/helper';
+import { currentPageHandler } from "../actions/currentPage";
 
 class HomePage extends Component {
     state = {
-        activeTab: 'unanswered'
+        activeTab: 'unanswered',
     };
 
     toggle = tab => {
@@ -14,6 +15,11 @@ class HomePage extends Component {
                 activeTab: tab
             });
         }
+    };
+
+    handleViewPollBtn = () => {
+        // only the current page to be deactivated
+        this.props.dispatch(currentPageHandler(''));
     };
 
     render() {
@@ -25,7 +31,7 @@ class HomePage extends Component {
         }
 
         const {unAnsweredQuestions, answeredQuestions} = checkIfAnswered(questions, loggedInUser);
-        const cardsToShow = activeTab === 'unanswered' ? unAnsweredQuestions : answeredQuestions;
+        const pollsToShow = activeTab === 'unanswered' ? unAnsweredQuestions : answeredQuestions;
 
         return (
             <div className='container'>
@@ -47,10 +53,11 @@ class HomePage extends Component {
                         </div>
                     </div>
                     <div className='card-body'>
-                        {cardsToShow && cardsToShow.map(question => (
+                        {pollsToShow && pollsToShow.map(question => (
                             <PollSimpleView
                                 key={question.id}
                                 question={question}
+                                onBtnPressed={this.handleViewPollBtn}
                                 user={Object.keys(users).map(key => users[key]).filter(user => user.id === question.author)[0]}
                             />
                         ))}
