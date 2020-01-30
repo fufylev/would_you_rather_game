@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { checkIfAnswered } from '../utils/helper';
-import PollCardAnswered from "./PollCardAnswered";
-import PollCardUnAnswered from "./PollCardUnAnswered";
+import PollCardAnswered from "./AnsweredQuestionCard";
+import PollCardUnAnswered from "./UnAnsweredQuestionCard";
 
 class PollCard extends Component {
     render() {

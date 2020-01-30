@@ -15,15 +15,23 @@ import PollCard from "./components/PollCard";
 class App extends Component {
 
     componentDidMount() {
-        // Note: response from 'firebaseio.com' server is always an Object
-        this.props.dispatch(handleInitialData());
+        const {questions, users} = this.props;
+
+        /* if no users and question in the store (came from 'redux-persist' Local Storage
+            - see the file './src/index.js') then take initial data from _DATA.js.
+            This function invokes only one time in first game start
+            - later then all data stores in the Local Storage */
+        if (Object.keys(users).length === 0 && Object.keys(questions).length === 0) {
+            this.props.dispatch(handleInitialData());
+        }
+
     }
 
     render() {
         return (
             <div>
                 <Router>
-                    <Header />
+                    <Header/>
                     <NavBar/>
                     <Route exact path='/' component={HomePage}/>
                     <Route path='/new' component={NewQuestion}/>
@@ -36,4 +44,11 @@ class App extends Component {
     }
 }
 
-export default connect()(App);
+function mapStateToProps({questions, users}) {
+    return {
+        users,
+        questions
+    };
+}
+
+export default connect(mapStateToProps)(App);

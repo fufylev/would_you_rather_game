@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PollSimpleView from './PollSimpleView';
+import QuestionCardSimpleView from './QuestionCardSimpleView';
 import { checkIfAnswered } from '../utils/helper';
-import { currentPageHandler } from "../actions/currentPage";
+import { currentPageHandler } from '../actions/currentPage';
 
 class HomePage extends Component {
     state = {
@@ -18,7 +18,7 @@ class HomePage extends Component {
     };
 
     handleViewPollBtn = () => {
-        // only the current page to be deactivated
+        // the current page to be deactivated
         this.props.dispatch(currentPageHandler(''));
     };
 
@@ -53,8 +53,14 @@ class HomePage extends Component {
                         </div>
                     </div>
                     <div className='card-body'>
+                        {pollsToShow && pollsToShow.length === 0 && this.state.activeTab === 'unanswered' && (
+                            <h5>No unanswered questions remain.</h5>
+                        )}
+                        {pollsToShow && pollsToShow.length === 0 && this.state.activeTab === 'answered' && (
+                            <h5>You haven't answer any questions yet. Go to "Unanswered questions" tab</h5>
+                        )}
                         {pollsToShow && pollsToShow.map(question => (
-                            <PollSimpleView
+                            <QuestionCardSimpleView
                                 key={question.id}
                                 question={question}
                                 onBtnPressed={this.handleViewPollBtn}

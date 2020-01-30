@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FaUserGraduate } from 'react-icons/fa';
 import { MDBLink} from "mdbreact";
 
-class PollSimpleView extends Component {
+class QuestionCardSimpleView extends Component {
     render() {
         const {id, optionOne} = this.props.question;
         const {user} = this.props;
@@ -36,4 +36,4 @@ class PollSimpleView extends Component {
     }
 }
 
-export default PollSimpleView;
+export default QuestionCardSimpleView;
