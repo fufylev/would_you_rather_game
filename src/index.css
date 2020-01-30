@@ -41,6 +41,34 @@ code {
     width: 80px;
 }
 
+.answer-box-win, .answer-box-default {
+    position: relative;
+    padding: 20px 70px 20px 10px;
+    margin: 20px 0 30px;
+    border-radius: 10px;
+}
+
+.answer-box-win {
+    border: 2px solid green;
+    background-color: #c5e5b3;
+}
+
+
+.answer-box-default {
+    border: 2px solid #ccc;
+    background-color: #f5f0f0;
+}
+
+.vote-pill {
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    background: #e4e2a5;
+    border: 2px solid green!important;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+
 @media screen and (max-width: 992px) {
 
 }

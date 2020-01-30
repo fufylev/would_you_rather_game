@@ -19,8 +19,8 @@ class App extends Component {
 
         /* if no users and question in the store (came from 'redux-persist' Local Storage
             - see the file './src/index.js') then take initial data from _DATA.js.
-            This function invokes only one time in first game start
-            - later then all data stores in the Local Storage */
+            This function invokes only one time when game start first time
+            - later then all data stores in the Local Storage along with redux store */
         if (Object.keys(users).length === 0 && Object.keys(questions).length === 0) {
             this.props.dispatch(handleInitialData());
         }
