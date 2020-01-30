@@ -1,7 +1,12 @@
 import { receiveUsers } from './users';
 import { receiveQuestions } from './questions';
 import { getInitialData } from '../utils/_DATA';
+import { formatQuestion } from '../utils/helper';
 
+/**
+ * Receive initial data if it does not exists in the LocalStorage
+ * @returns {function(*): Promise<{questions: *, users: *}>}
+ */
 export function handleInitialData() {
     return (dispatch) => {
         return getInitialData()
@@ -45,6 +50,29 @@ export function saveQuestionAnswer ({ authedUser, qid, answer }) {
             }
         };
 
+        dispatch(receiveUsers({...usersNew}));
+        dispatch(receiveQuestions({...questionsNew}));
+    }
+}
+
+export function saveQuestion (question) {
+    return (dispatch, getState) => {
+        const {users, questions} = getState();
+        const authedUser = question.author;
+        const formattedQuestion = formatQuestion(question);
+
+        const questionsNew  = {
+            ...questions,
+            [formattedQuestion.id]: formattedQuestion
+        };
+
+        const usersNew = {
+            ...users,
+            [authedUser]: {
+                ...users[authedUser],
+                questions: users[authedUser].questions.concat([formattedQuestion.id])
+            }
+        };
         dispatch(receiveUsers({...usersNew}));
         dispatch(receiveQuestions({...questionsNew}));
     }
