@@ -1,37 +1,10 @@
-import axios from 'axios';
 import { receiveUsers } from './users';
 import { receiveQuestions } from './questions';
+import { getInitialData } from '../utils/_DATA';
 
-const DB = 'https://would-you-rather-38744.firebaseio.com/';
-
-/**
- * This function sends query the DB server in order to receive initial data to build App
- * @returns {Promise<{questions: Object with all questions,
- *                      users: Object with all users}>}
- */
-function getAll() {
-    const users = axios.get(`${DB}users.json`)
-        .then(res => {
-            return {...res.data}
-        })
-        .catch(e => console.log(e));
-
-    const questions = axios.get(`${DB}questions.json`)
-        .then(res => {
-            return {...res.data}
-        })
-        .catch(e => console.log(e));
-
-    return Promise.all([users, questions])
-        .then(([users, questions]) => ({
-            users,
-            questions,
-        }));
-}
-
-export function getInitialData() {
+export function handleInitialData() {
     return (dispatch) => {
-        return getAll()
+        return getInitialData()
             .then(({users, questions}) => {
                 dispatch(receiveUsers(users));
                 dispatch(receiveQuestions(questions));
@@ -39,5 +12,41 @@ export function getInitialData() {
     }
 }
 
+/**
+ * This function updates users and questions once User submitted the Poll
+ * @param authedUser {string} - User's id
+ * @param qid {string} - poll question's id
+ * @param answer {string} - chosen User's answer
+ * @returns {function(...[*]=)} - invokes users' and questions' actions
+ */
+export function saveQuestionAnswer ({ authedUser, qid, answer }) {
+    return (dispatch, getState) => {
+        const {users, questions} = getState();
 
+        const usersNew = {
+            ...users,
+            [authedUser]: {
+                ...users[authedUser],
+                answers: {
+                    ...users[authedUser].answers,
+                    [qid]: answer
+                }
+            }
+        };
+
+        const questionsNew = {
+            ...questions,
+            [qid]: {
+                ...questions[qid],
+                [answer]: {
+                    ...questions[qid][answer],
+                    votes: questions[qid][answer].votes.concat([authedUser])
+                }
+            }
+        };
+
+        dispatch(receiveUsers({...usersNew}));
+        dispatch(receiveQuestions({...questionsNew}));
+    }
+}
 

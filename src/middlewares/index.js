@@ -2,7 +2,10 @@ import thunk from "redux-thunk";
 import {applyMiddleware} from "redux";
 import { createLogger } from 'redux-logger';
 
-export  default applyMiddleware(
-    thunk,
-    createLogger(),
-)
+let middleware = [thunk];
+
+if (process.env.NODE_ENV !== 'production') {
+    middleware = [...middleware, createLogger()];
+}
+
+export  default applyMiddleware(...middleware);

@@ -1,12 +1,3 @@
-export const DB = 'https://would-you-rather-38744.firebaseio.com/';
-/*axios.patch(URL, {
-  'firstname': this.state.account.firstname,
-  'surname': this.state.account.surname,
-})
-    .then((response) => {
-      console.log(response);
-    });*/
-
 let users = {
   sarahedo: {
     id: 'sarahedo',
@@ -140,6 +131,16 @@ export function _getQuestions () {
   })
 }
 
+export function getInitialData () {
+  return Promise.all([
+    _getUsers(),
+    _getQuestions(),
+  ]).then(([users, questions]) => ({
+    users,
+    questions,
+  }))
+}
+
 function formatQuestion ({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
@@ -181,6 +182,7 @@ export function _saveQuestion (question) {
 }
 
 export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+  // console.log(authedUser, qid, answer);
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {
@@ -205,7 +207,7 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
         }
       };
 
-      res()
+      res({users, questions})
     }, 500)
   })
 }
