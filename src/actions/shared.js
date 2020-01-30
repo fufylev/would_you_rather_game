@@ -1,5 +1,5 @@
-import { receiveUsers } from './users';
-import { receiveQuestions } from './questions';
+import { saveUsers } from './users';
+import { saveQuestions } from './questions';
 import { getInitialData } from '../utils/_DATA';
 import { formatQuestion } from '../utils/helper';
 
@@ -11,8 +11,8 @@ export function handleInitialData() {
     return (dispatch) => {
         return getInitialData()
             .then(({users, questions}) => {
-                dispatch(receiveUsers(users));
-                dispatch(receiveQuestions(questions));
+                dispatch(saveUsers(users));
+                dispatch(saveQuestions(questions));
             })
     }
 }
@@ -50,8 +50,8 @@ export function saveQuestionAnswer ({ authedUser, qid, answer }) {
             }
         };
 
-        dispatch(receiveUsers({...usersNew}));
-        dispatch(receiveQuestions({...questionsNew}));
+        dispatch(saveUsers({...usersNew}));
+        dispatch(saveQuestions({...questionsNew}));
     }
 }
 
@@ -73,8 +73,8 @@ export function saveQuestion (question) {
                 questions: users[authedUser].questions.concat([formattedQuestion.id])
             }
         };
-        dispatch(receiveUsers({...usersNew}));
-        dispatch(receiveQuestions({...questionsNew}));
+        dispatch(saveUsers({...usersNew}));
+        dispatch(saveQuestions({...questionsNew}));
     }
 }
 

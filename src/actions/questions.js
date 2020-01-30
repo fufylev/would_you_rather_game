@@ -1,8 +1,8 @@
-export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
+export const SAVE_QUESTIONS = 'SAVE_QUESTIONS';
 
-export function receiveQuestions(questions) {
+export function saveQuestions(questions) {
     return {
-        type: RECEIVE_QUESTIONS,
+        type: SAVE_QUESTIONS,
         questions,
     }
 }
