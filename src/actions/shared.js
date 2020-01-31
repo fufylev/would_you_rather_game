@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from 'react-redux-loading';
+
 import { saveUsers } from './users';
 import { saveQuestions } from './questions';
 import { getInitialData } from '../utils/_DATA';
@@ -9,10 +11,12 @@ import { formatQuestion } from '../utils/helper';
  */
 export function handleInitialData() {
     return (dispatch) => {
+        dispatch(showLoading());
         return getInitialData()
             .then(({users, questions}) => {
                 dispatch(saveUsers(users));
                 dispatch(saveQuestions(questions));
+                dispatch(hideLoading());
             })
     }
 }
@@ -54,6 +58,37 @@ export function saveQuestionAnswer ({ authedUser, qid, answer }) {
         dispatch(saveQuestions({...questionsNew}));
     }
 }
+
+export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            users = {
+                ...users,
+                [authedUser]: {
+                    ...users[authedUser],
+                    answers: {
+                        ...users[authedUser].answers,
+                        [qid]: answer
+                    }
+                }
+            }
+
+            questions = {
+                ...questions,
+                [qid]: {
+                    ...questions[qid],
+                    [answer]: {
+                        ...questions[qid][answer],
+                        votes: questions[qid][answer].votes.concat([authedUser])
+                    }
+                }
+            }
+
+            res()
+        }, 1500)
+    })
+}
+
 
 export function saveQuestion (question) {
     return (dispatch, getState) => {

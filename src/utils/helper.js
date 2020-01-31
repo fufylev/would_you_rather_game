@@ -1,6 +1,13 @@
+/**
+ * TODO
+ * @param questions
+ * @param loggedInUser
+ * @returns {{unAnsweredQuestions: *[], answeredQuestions: *[]}}
+ */
 export function checkIfAnswered(questions, loggedInUser) {
     const unAnsweredQuestions = Object.keys(questions)
         .map(key => questions[key])
+        .sort((a, b) => (b.timestamp - a.timestamp))
         .filter(question => {
             // concat all votes
             let arr = [];
@@ -15,6 +22,7 @@ export function checkIfAnswered(questions, loggedInUser) {
 
     const answeredQuestions = Object.keys(questions)
         .map(key => questions[key])
+        .sort((a, b) => (b.timestamp - a.timestamp))
         .filter(question => {
             // concat all votes
             let arr = [];
@@ -29,10 +37,21 @@ export function checkIfAnswered(questions, loggedInUser) {
     return {unAnsweredQuestions, answeredQuestions}
 }
 
+/**
+ *
+ * @returns {string}
+ */
 function generateUID () {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
+/**
+ *
+ * @param optionOneText
+ * @param optionTwoText
+ * @param author
+ * @returns {{author: *, optionTwo: {votes: [], text: *}, id: string, timestamp: number, optionOne: {votes: [], text: *}}}
+ */
 export function formatQuestion ({ optionOneText, optionTwoText, author }) {
     return {
         id: generateUID(),

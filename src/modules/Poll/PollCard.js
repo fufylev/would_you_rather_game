@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
-import { checkIfAnswered } from '../utils/helper';
+import { checkIfAnswered } from '../../utils/helper';
 import PollCardAnswered from "./AnsweredQuestionCard";
 import PollCardUnAnswered from "./UnAnsweredQuestionCard";
 
@@ -13,7 +13,7 @@ class PollCard extends Component {
         const isAnswered = answeredQuestions.map(el => el.id).includes(id);
 
         return (
-            <div className='container text-center'>
+            <div className='container text-center questions-container '>
                 {isAnswered
                     ? <PollCardAnswered
                         question={answeredQuestions.filter(item => item.id === id)[0]}

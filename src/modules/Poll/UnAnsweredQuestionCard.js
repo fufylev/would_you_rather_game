@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FaUserGraduate } from 'react-icons/fa';
 import { MDBBtn } from 'mdbreact';
-import { saveQuestionAnswer } from '../actions/shared';
+import { saveQuestionAnswer } from '../../actions/shared';
 
 class UnAnsweredQuestionCard extends Component {
     state = {
@@ -30,11 +30,14 @@ class UnAnsweredQuestionCard extends Component {
 
         return (
             <div className='card testimonial-card mb-3'>
-                <div className='card-header font-weight-bold'>{user.name} asks:</div>
+                <div className='card-header font-weight-bold text-left p-1'>
+                    {user.avatarURL && user.avatarURL.length !==0 &&
+                    <img src={user.avatarURL} alt={`Avatar of ${user.name}`} className='avatar'/>}
+                    {(!user.avatarURL || user.avatarURL.length ===0) &&
+                    <FaUserGraduate size='4em' className='mx-3'/>}
+                    <span>{user.name} asks:</span>
+                </div>
                 <div className='card-body d-flex'>
-                    <div className='border-right border-secondary pr-3'>
-                        <FaUserGraduate size='4em'/>
-                    </div>
                     <div className='ml-3 text-left'>
                         <h5 className='card-title'>Would You Rather....</h5>
                         <form onSubmit={this.submitHandler}>
