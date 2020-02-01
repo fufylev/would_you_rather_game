@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveQuestion } from '../actions/shared';
+import { withRouter } from "react-router-dom";
+import { saveQuestion } from '../../actions/shared';
+import { currentPageHandler } from "../../actions/currentPage";
 
 class NewQuestion extends Component {
     constructor(props) {
@@ -23,15 +25,24 @@ class NewQuestion extends Component {
         event.preventDefault();
         const {optionOneText, optionTwoText} = this.state;
         const author = this.props.loggedInUser.id;
-        this.props.dispatch(saveQuestion({ optionOneText, optionTwoText, author }));
-        this.setState(() => ({
+        this.props.dispatch(saveQuestion({optionOneText, optionTwoText, author}));
+        /*this.setState(() => ({
             optionOneText: '',
             optionTwoText: '',
-        }))
+        }))*/
+
+        // redirect to Home Page
+        this.props.history.push(`/`);
+        this.props.dispatch(currentPageHandler('/'));
     };
 
     render() {
         const {optionOneText, optionTwoText} = this.state;
+        const {loggedInUser} = this.props;
+
+        if (!loggedInUser.id) {
+            return <div className='container'><h3>You are unauthorized. Please Log In</h3></div>
+        }
 
         return (
             <div className='container'>
@@ -72,4 +83,4 @@ function mapStateToProps({loggedInUser}) {
     };
 }
 
-export default connect(mapStateToProps)(NewQuestion);
+export default withRouter(connect(mapStateToProps)(NewQuestion));

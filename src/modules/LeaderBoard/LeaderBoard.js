@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import LeaderBoardViewCard from './LeaderBoardViewCard';
 
 const LeaderBoard = (props) => {
-    const {users} = props;
+    const {users, loggedInUser} = props;
+
+    if (!loggedInUser.id) {
+        return <div className='container'><h3>You are unauthorized. Please Log In</h3></div>
+    }
 
     const sortedUser = Object.keys(users)
         .map(key => {
@@ -18,8 +22,6 @@ const LeaderBoard = (props) => {
         })
         .sort((a, b) => b.score - a.score);
 
-    console.log(sortedUser);
-
     return (
         <div className='container'>
             {sortedUser && sortedUser.map((user, index) =>
@@ -32,9 +34,10 @@ const LeaderBoard = (props) => {
     );
 };
 
-function mapStateToProps({users}) {
+function mapStateToProps({users, loggedInUser}) {
     return {
         users,
+        loggedInUser
     };
 }
 

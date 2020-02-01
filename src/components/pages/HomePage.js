@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import QuestionCardSimpleView from './QuestionCardSimpleView';
-import { checkIfAnswered } from '../utils/helper';
-import { currentPageHandler } from '../actions/currentPage';
+import QuestionCardSimpleView from '../../modules/Poll/QuestionCardSimpleView';
+import { checkIfAnswered } from '../../utils/helper';
+import { currentPageHandler } from '../../actions/currentPage';
 
 class HomePage extends Component {
     state = {
@@ -27,7 +27,7 @@ class HomePage extends Component {
         const {activeTab} = this.state;
 
         if (!loggedInUser.id) {
-            return <div className='container'><h3>You aren't logged in. Please Log In</h3></div>
+            return <div className='container'><h3>You are unauthorized. Please Log In</h3></div>
         }
 
         const {unAnsweredQuestions, answeredQuestions} = checkIfAnswered(questions, loggedInUser);
@@ -41,14 +41,14 @@ class HomePage extends Component {
                             <div className={activeTab === 'unanswered'
                                 ? 'font-weight-bold text-success card-header tab-custom-content'
                                 : 'card-header tab-custom-content'}>
-                                Unanswered Questions
+                                Unanswered questions
                             </div>
                         </div>
                         <div className='card tab-custom' onClick={() => this.toggle('answered')}>
                             <div className={activeTab === 'answered'
                                 ? 'font-weight-bold text-success card-header tab-custom-content'
                                 : 'card-header tab-custom-content'}>
-                                Answered Questions
+                                Answered <br/>questions
                             </div>
                         </div>
                     </div>

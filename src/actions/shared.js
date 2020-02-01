@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from 'react-redux-loading';
+
 import { saveUsers } from './users';
 import { saveQuestions } from './questions';
 import { getInitialData } from '../utils/_DATA';
@@ -9,10 +11,12 @@ import { formatQuestion } from '../utils/helper';
  */
 export function handleInitialData() {
     return (dispatch) => {
+        dispatch(showLoading());
         return getInitialData()
             .then(({users, questions}) => {
                 dispatch(saveUsers(users));
                 dispatch(saveQuestions(questions));
+                dispatch(hideLoading());
             })
     }
 }
@@ -26,6 +30,7 @@ export function handleInitialData() {
  */
 export function saveQuestionAnswer ({ authedUser, qid, answer }) {
     return (dispatch, getState) => {
+        dispatch(showLoading());
         const {users, questions} = getState();
 
         const usersNew = {
@@ -49,14 +54,23 @@ export function saveQuestionAnswer ({ authedUser, qid, answer }) {
                 }
             }
         };
-
-        dispatch(saveUsers({...usersNew}));
-        dispatch(saveQuestions({...questionsNew}));
+        // imitate a server response
+        setTimeout(() => {
+            dispatch(saveUsers({...usersNew}));
+            dispatch(saveQuestions({...questionsNew}));
+            dispatch(hideLoading());
+        }, 1000);
     }
 }
 
+/**
+ * saves the question created by user
+ * @param question - {Object}
+ * @returns {function(...[*]=)}
+ */
 export function saveQuestion (question) {
     return (dispatch, getState) => {
+        dispatch(showLoading());
         const {users, questions} = getState();
         const authedUser = question.author;
         const formattedQuestion = formatQuestion(question);
@@ -73,8 +87,13 @@ export function saveQuestion (question) {
                 questions: users[authedUser].questions.concat([formattedQuestion.id])
             }
         };
-        dispatch(saveUsers({...usersNew}));
-        dispatch(saveQuestions({...questionsNew}));
+        // imitate a server response
+        setTimeout(() => {
+            dispatch(saveUsers({...usersNew}));
+            dispatch(saveQuestions({...questionsNew}));
+            dispatch(hideLoading());
+        }, 1000);
+
     }
 }
 

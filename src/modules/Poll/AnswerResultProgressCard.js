@@ -12,9 +12,9 @@ const AnswerResultProgressCard = (props) => {
             <strong>Would you rather {text}</strong>
             <div className='my-2 bg-white border border-warning rounded text-right'>
                 <div style={{
-                    width: `${onwOptionRate < 12 ? 12 : onwOptionRate}%`,
-                    backgroundColor: onwOptionRate < 12 ? 'white' : 'green',
-                    color: onwOptionRate < 12 ? 'black' : 'white',
+                    width: `${onwOptionRate < 15 ? 15 : onwOptionRate}%`,
+                    backgroundColor: onwOptionRate < 15 ? 'white' : 'green',
+                    color: onwOptionRate < 15 ? 'black' : 'white',
                     paddingRight: '3px'
                 }}>
                     {onwOptionRate}%
