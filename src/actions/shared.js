@@ -30,6 +30,7 @@ export function handleInitialData() {
  */
 export function saveQuestionAnswer ({ authedUser, qid, answer }) {
     return (dispatch, getState) => {
+        dispatch(showLoading());
         const {users, questions} = getState();
 
         const usersNew = {
@@ -53,45 +54,23 @@ export function saveQuestionAnswer ({ authedUser, qid, answer }) {
                 }
             }
         };
-
-        dispatch(saveUsers({...usersNew}));
-        dispatch(saveQuestions({...questionsNew}));
+        // imitate a server response
+        setTimeout(() => {
+            dispatch(saveUsers({...usersNew}));
+            dispatch(saveQuestions({...questionsNew}));
+            dispatch(hideLoading());
+        }, 1000);
     }
 }
 
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
-    return new Promise((res, rej) => {
-        setTimeout(() => {
-            users = {
-                ...users,
-                [authedUser]: {
-                    ...users[authedUser],
-                    answers: {
-                        ...users[authedUser].answers,
-                        [qid]: answer
-                    }
-                }
-            }
-
-            questions = {
-                ...questions,
-                [qid]: {
-                    ...questions[qid],
-                    [answer]: {
-                        ...questions[qid][answer],
-                        votes: questions[qid][answer].votes.concat([authedUser])
-                    }
-                }
-            }
-
-            res()
-        }, 1500)
-    })
-}
-
-
+/**
+ * saves the question created by user
+ * @param question - {Object}
+ * @returns {function(...[*]=)}
+ */
 export function saveQuestion (question) {
     return (dispatch, getState) => {
+        dispatch(showLoading());
         const {users, questions} = getState();
         const authedUser = question.author;
         const formattedQuestion = formatQuestion(question);
@@ -108,8 +87,13 @@ export function saveQuestion (question) {
                 questions: users[authedUser].questions.concat([formattedQuestion.id])
             }
         };
-        dispatch(saveUsers({...usersNew}));
-        dispatch(saveQuestions({...questionsNew}));
+        // imitate a server response
+        setTimeout(() => {
+            dispatch(saveUsers({...usersNew}));
+            dispatch(saveQuestions({...questionsNew}));
+            dispatch(hideLoading());
+        }, 1000);
+
     }
 }
 

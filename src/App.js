@@ -29,11 +29,11 @@ class App extends Component {
 
     render() {
         return (
-            <>
+            <div>
                 <Router>
-                    <>
+                    <div>
                         <NavBar/>
-                        <div className='container'><LoadingBar/></div>
+                        <LoadingBar/>
                         <Switch>
                             <Route exact path='/' component={HomePage}/>
                             <Route path='/add' component={NewQuestion}/>
@@ -42,9 +42,9 @@ class App extends Component {
                             <Route path='/auth' component={Auth}/>
                             <Route path='/*' component={PageNotFound}/>
                         </Switch>
-                    </>
+                    </div>
                 </Router>
-            </>
+            </div>
         );
     }
 }

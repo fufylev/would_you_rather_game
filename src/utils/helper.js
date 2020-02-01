@@ -1,7 +1,7 @@
 /**
- * TODO
- * @param questions
- * @param loggedInUser
+ * this function returns arrays of unAnswered questions & answered questions for particulat user
+ * @param questions - {Object} - set of all questions in store
+ * @param loggedInUser {Object} - user's data {name, id}
  * @returns {{unAnsweredQuestions: *[], answeredQuestions: *[]}}
  */
 export function checkIfAnswered(questions, loggedInUser) {
@@ -38,7 +38,7 @@ export function checkIfAnswered(questions, loggedInUser) {
 }
 
 /**
- *
+ * generates unique number according to current time and date
  * @returns {string}
  */
 function generateUID () {
@@ -46,10 +46,10 @@ function generateUID () {
 }
 
 /**
- *
- * @param optionOneText
- * @param optionTwoText
- * @param author
+ * forms question to the appropriate structure which suits reducer
+ * @param optionOneText - first option
+ * @param optionTwoText - second option
+ * @param author - user's id
  * @returns {{author: *, optionTwo: {votes: [], text: *}, id: string, timestamp: number, optionOne: {votes: [], text: *}}}
  */
 export function formatQuestion ({ optionOneText, optionTwoText, author }) {

@@ -3,10 +3,12 @@ import users from './users';
 import questions from './questions';
 import loggedInUser from './auth';
 import currentPage from './currentPage';
+import { loadingBarReducer } from 'react-redux-loading';
 
 export default combineReducers({
     users,
     questions,
     loggedInUser,
-    currentPage
+    currentPage,
+    loadingBar: loadingBarReducer,
 });
