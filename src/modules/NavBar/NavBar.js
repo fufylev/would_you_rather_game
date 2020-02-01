@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-    MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBLink, MDBNavLink, MDBNavbarToggler, MDBCollapse,
-} from "mdbreact";
+import {MDBNavbar, MDBNavbarNav, MDBNavItem, MDBLink, MDBNavLink} from "mdbreact";
 
 import { FaUserGraduate } from 'react-icons/fa';
 import { currentPageHandler } from '../../actions/currentPage';
