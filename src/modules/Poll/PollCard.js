@@ -12,6 +12,13 @@ class PollCard extends Component {
         const {unAnsweredQuestions, answeredQuestions} = checkIfAnswered(questions, loggedInUser);
         const isAnswered = answeredQuestions.map(el => el.id).includes(id);
 
+        /*if (!questions[id]) {
+            this.props.history.push('/page404');
+            return
+        }*/
+
+        // console.log(questions[id]);
+
         return (
             <div className='container text-center questions-container '>
                 {isAnswered

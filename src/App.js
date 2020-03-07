@@ -11,7 +11,8 @@ import { handleInitialData } from './actions/shared';
 import PollCard from './modules/Poll/PollCard';
 import PageNotFound from './components/PageNotFound';
 import { LoadingBar } from 'react-redux-loading';
-
+import requireAuth from './HOC/requiresAuth';
+import checkIfPollExists from './HOC/checkIfPollExists';
 
 class App extends Component {
     componentDidMount() {
@@ -35,12 +36,14 @@ class App extends Component {
                         <NavBar/>
                         <LoadingBar/>
                         <Switch>
-                            <Route exact path='/' component={HomePage}/>
-                            <Route path='/add' component={NewQuestion}/>
-                            <Route path='/question/:id/' component={PollCard}/>
-                            <Route path='/leaderboard' component={LeaderBoardPage}/>
+                            <Route exact path='/' component={requireAuth(HomePage)}/>
+                            <Route path='/add' component={requireAuth(NewQuestion)}/>
+                            <Route path='/question/:id/' component={checkIfPollExists(PollCard)}/>
+                            {/*<Route path='/question/:id/' component={PollCard}/>*/}
+                            <Route path='/leaderboard' component={requireAuth(LeaderBoardPage)}/>
                             <Route path='/auth' component={Auth}/>
                             <Route path='/*' component={PageNotFound}/>
+                            <Route path='/page404' component={PageNotFound}/>
                         </Switch>
                     </div>
                 </Router>
@@ -49,10 +52,11 @@ class App extends Component {
     }
 }
 
-function mapStateToProps({questions, users}) {
+function mapStateToProps({questions, users, loggedInUser}) {
     return {
         users,
-        questions
+        questions,
+        loggedInUser
     };
 }
 

@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import LeaderBoardViewCard from './LeaderBoardViewCard';
 
 const LeaderBoard = (props) => {
-    const {users, loggedInUser} = props;
-
-    if (!loggedInUser.id) {
-        return <div className='container'><h3>You are unauthorized. Please Log In</h3></div>
-    }
+    const {users} = props;
 
     const sortedUser = Object.keys(users)
         .map(key => {
