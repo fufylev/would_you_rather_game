@@ -26,10 +26,6 @@ class NewQuestion extends Component {
         const {optionOneText, optionTwoText} = this.state;
         const author = this.props.loggedInUser.id;
         this.props.dispatch(saveQuestion({optionOneText, optionTwoText, author}));
-        /*this.setState(() => ({
-            optionOneText: '',
-            optionTwoText: '',
-        }))*/
 
         // redirect to Home Page
         this.props.history.push(`/`);
@@ -38,11 +34,6 @@ class NewQuestion extends Component {
 
     render() {
         const {optionOneText, optionTwoText} = this.state;
-        const {loggedInUser} = this.props;
-
-        if (!loggedInUser.id) {
-            return <div className='container'><h3>You are unauthorized. Please Log In</h3></div>
-        }
 
         return (
             <div className='container'>

@@ -26,10 +26,6 @@ class HomePage extends Component {
         const {loggedInUser, questions, users} = this.props;
         const {activeTab} = this.state;
 
-        if (!loggedInUser.id) {
-            return <div className='container'><h3>You are unauthorized. Please Log In</h3></div>
-        }
-
         const {unAnsweredQuestions, answeredQuestions} = checkIfAnswered(questions, loggedInUser);
         const pollsToShow = activeTab === 'unanswered' ? unAnsweredQuestions : answeredQuestions;
 
